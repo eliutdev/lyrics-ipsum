@@ -7,7 +7,10 @@
     "start": "node .output/server/index.mjs"
   },
   "dependencies": {
-    "nuxt3": "latest",
     "vue-content-loader": "^2.0.0"
+  },
+  "devDependencies": {
+    "nuxt3": "latest",
+    "@nuxt/kit": "^0.8.1-edge"
   }
 }
