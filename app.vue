@@ -10,6 +10,15 @@ export default {
       isLoading: false,
     };
   },
+  mounted() {
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-3XS4570LMR");
+  },
   computed: {
     screenWidth() {
       return window.innerWidth - 34;
