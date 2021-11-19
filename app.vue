@@ -28,7 +28,7 @@ export default {
 <template>
   <main class="home">
     <h1>Lyrics Ipsum</h1>
-    <p>The Lorem Ipsum from your lyrics</p>
+    <p>The Lorem Ipsum Generator for Lyrics</p>
     <form @submit.prevent="getLyrics">
       <input
         type="text"
