@@ -7,6 +7,9 @@ export default async (req) => {
   );
   const tracks = await response.json();
   const list = tracks.message.body.track_list;
+  if (!list.length) {
+    return [];
+  }
   // Get three random tracks
   const randomTracks = [];
   for (let i = 0; i < 3; i++) {
@@ -23,15 +26,15 @@ export default async (req) => {
       return await response.json();
     })
   );
-  if (lyrics.length === 0) {
+  if (!lyrics.length) {
     return [];
   }
   return lyrics
-    .filter(({ message }) => message.body.length)
-    .map(({ message }) =>
-      message.body.lyrics.lyrics_body.replace(
+    .filter(({ message }) => Object.keys(message.body).length > 0)
+    .map(({ message }) => {
+      return message.body.lyrics.lyrics_body.replace(
         "******* This Lyrics is NOT for Commercial use *******",
         ""
-      )
-    );
+      );
+    });
 };
