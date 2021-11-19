@@ -44,6 +44,7 @@ export default {
 
 <template>
   <main class="home">
+    <Title>Lyrics Ipsum</Title>
     <h1>Lyrics Ipsum</h1>
     <p>The Lorem Ipsum Generator for Lyrics</p>
     <form @submit.prevent="getLyrics">
