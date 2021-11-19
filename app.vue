@@ -10,6 +10,11 @@ export default {
       isLoading: false,
     };
   },
+  computed: {
+    screenWidth() {
+      return window.innerWidth - 34;
+    },
+  },
   methods: {
     async getLyrics() {
       try {
@@ -42,7 +47,7 @@ export default {
         :disabled="isLoading"
       />
     </form>
-    <template v-if="lyrics.length">
+    <template v-if="lyrics.length && !isLoading">
       <p v-for="(lyric, index) in lyrics" :key="index">
         <span v-if="index === 0">{{ lyric }}</span>
         <span v-else>{{ lyric }}</span>
@@ -64,18 +69,22 @@ export default {
         >
       </p>
     </template>
-    <ContentLoader
-      v-if="isLoading"
-      :width="400"
-      :height="160"
-      :speed="2"
-      primaryColor="#f3f3f3"
-      secondaryColor="#ecebeb"
-    >
-      <rect x="0" y="56" rx="3" ry="3" width="410" height="6" />
-      <rect x="0" y="72" rx="3" ry="3" width="380" height="6" />
-      <rect x="0" y="88" rx="3" ry="3" width="178" height="6" />
-    </ContentLoader>
+    <template v-if="isLoading">
+      <ContentLoader
+        v-for="i in 3"
+        :key="i"
+        :width="screenWidth"
+        :speed="2"
+        primaryColor="#f3f3f3"
+        secondaryColor="#ecebeb"
+      >
+        <rect x="0" y="56" rx="3" ry="3" width="410" height="6" />
+        <rect x="0" y="72" rx="3" ry="3" width="380" height="6" />
+        <rect x="0" y="88" rx="3" ry="3" width="380" height="6" />
+        <rect x="0" y="104" rx="3" ry="3" width="380" height="6" />
+        <rect x="0" y="116" rx="3" ry="3" width="178" height="6" />
+      </ContentLoader>
+    </template>
   </main>
 </template>
 
@@ -103,17 +112,17 @@ form {
   flex-direction: row;
   align-items: center;
 }
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
+input {
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1rem;
+}
+input[type="text"] {
+  width: 100%;
   margin-right: 1rem;
 }
 input[type="submit"] {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   background-color: #000;
   color: #fff;
   cursor: pointer;
