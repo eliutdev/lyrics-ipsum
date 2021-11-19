@@ -26,6 +26,9 @@ export default {
         this.isLoading = false;
       }
     },
+    parseText(text) {
+      return text.replace(/\n/g, "<br>");
+    },
   },
 };
 </script>
@@ -48,42 +51,45 @@ export default {
       />
     </form>
     <template v-if="lyrics.length && !isLoading">
-      <p v-for="(lyric, index) in lyrics" :key="index">
-        <span v-if="index === 0">{{ lyric }}</span>
-        <span v-else>{{ lyric }}</span>
-      </p>
-      <p>
-        <small
-          >Created by
-          <a href="https://twitter.com/eliut505" target="_blank"
-            >Eliut González</a
-          ></small
-        >
-      </p>
-      <p>
-        <small
-          >Lyrics submitted by
-          <a href="https://www.musixmatch.com" target="_blank"
-            >Musixmatch</a
-          ></small
-        >
-      </p>
+      <p
+        v-for="(lyric, index) in lyrics"
+        :key="index"
+        v-html="parseText(lyric)"
+      ></p>
+      <footer>
+        <p>
+          <small
+            >Created by
+            <a href="https://twitter.com/eliut505" target="_blank"
+              >Eliut González</a
+            ></small
+          >
+        </p>
+        <p>
+          <small
+            >Lyrics submitted by
+            <a href="https://www.musixmatch.com" target="_blank"
+              >Musixmatch</a
+            ></small
+          >
+        </p>
+      </footer>
     </template>
     <template v-if="isLoading">
-      <ContentLoader
-        v-for="i in 3"
-        :key="i"
-        :width="screenWidth"
-        :speed="2"
-        primaryColor="#f3f3f3"
-        secondaryColor="#ecebeb"
-      >
-        <rect x="0" y="56" rx="3" ry="3" width="410" height="6" />
-        <rect x="0" y="72" rx="3" ry="3" width="380" height="6" />
-        <rect x="0" y="88" rx="3" ry="3" width="380" height="6" />
-        <rect x="0" y="104" rx="3" ry="3" width="380" height="6" />
-        <rect x="0" y="116" rx="3" ry="3" width="178" height="6" />
-      </ContentLoader>
+      <p v-for="i in 2" :key="i">
+        <ContentLoader
+          :width="screenWidth"
+          :speed="2"
+          primaryColor="#f3f3f3"
+          secondaryColor="#ecebeb"
+        >
+          <rect x="0" y="56" rx="3" ry="3" width="410" height="6" />
+          <rect x="0" y="72" rx="3" ry="3" width="380" height="6" />
+          <rect x="0" y="88" rx="3" ry="3" width="380" height="6" />
+          <rect x="0" y="104" rx="3" ry="3" width="380" height="6" />
+          <rect x="0" y="116" rx="3" ry="3" width="178" height="6" />
+        </ContentLoader>
+      </p>
     </template>
   </main>
 </template>
@@ -100,7 +106,7 @@ body {
 }
 .home {
   max-width: 1024px;
-  height: 100vh;
+  min-height: 100vh;
   margin: auto;
   padding: 1rem;
 }
@@ -130,6 +136,10 @@ input[type="submit"] {
 input[type="submit"]:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+footer {
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
 }
 small {
   font-size: 0.8rem;
